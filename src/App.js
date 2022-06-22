@@ -30,31 +30,26 @@ const Box = (props) => {
 	);
 };
 
+const Floor = (props) => {
+	return (
+		<mesh {...props}>
+			<boxBufferGeometry args={[15, 0.1, 30]} />
+			<meshBasicMaterial color='#fff' />
+		</mesh>
+	);
+};
+
 function App() {
 	return (
 		<section>
 			<figure>
 				{/* camera 위치값 [x, y, z] */}
 				<Canvas style={{ background: '#000' }} camera={{ position: [3, 3, 3] }}>
-					{/* <Box position={[1, -1, 0]} /> */}
+					<Box position={[1, 2, 0]} />
+					<Floor position={[0, -0.05, 0]} />
 					<Orbit />
 					<axesHelper args={[5]} />
 					{/* 가이드 축 보이게 함 */}
-
-					{/* 컴포넌트 이름에 따라서 렌더링 방식이 달라짐
-					Points: 포트 생성
-					line: 포인트를 선으로 연결
-					mesh: 라인을 면으로 생성 */}
-
-					<mesh>
-						<meshBasicMaterial color='hotpink' side={THREE.DoubleSide} />
-						<geometry>
-							<face3 args={[0, 1, 2]} attachArray='faces' />
-							<vector3 attachArray='vertices' args={[0, 2, 1]} />
-							<vector3 attachArray='vertices' />
-							<vector3 attachArray='vertices' args={[0, 1, -1]} />
-						</geometry>
-					</mesh>
 				</Canvas>
 			</figure>
 		</section>
