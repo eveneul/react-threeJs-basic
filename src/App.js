@@ -12,7 +12,7 @@ const Orbit = () => {
 	return <orbitControls args={[camera, gl.domElement]} />;
 };
 
-const Box = () => {
+const Box = (props) => {
 	const box = useRef(null);
 
 	//useFrame은 화면 주사율에 맞게 프레임별로 정보값 제공
@@ -22,7 +22,7 @@ const Box = () => {
 		box.current.rotation.y += 0.01;
 	});
 	return (
-		<mesh ref={box}>
+		<mesh ref={box} {...props}>
 			<boxBufferGeometry />
 			<meshBasicMaterial color='hotpink' />
 		</mesh>
@@ -35,7 +35,7 @@ function App() {
 			<figure>
 				{/* camera 위치값 [x, y, z] */}
 				<Canvas style={{ background: '#000' }} camera={{ position: [3, 3, 3] }}>
-					<Box />
+					<Box position={[1, -1, 0]} />
 					<Orbit />
 					<axesHelper args={[5]} />
 					{/* 가이드 축 보이게 함 */}
