@@ -49,11 +49,16 @@ function App() {
 	// 처음에 설정한 sence에 도형을 바인딩
 	scene.add(cube);
 
-	cube.rotation.x = 20;
-	cube.rotation.y = 50;
+	function animate() {
+		requestAnimationFrame(animate); // 자기 자신이 계속 반복
+		cube.rotation.x += 0.01;
+		cube.rotation.y += 0.01;
 
-	//신에 카메라를 연결해서 최종 렌더링
-	renderer.render(scene, camera);
+		//신에 카메라를 연결해서 최종 렌더링
+		renderer.render(scene, camera); // 움직일 때마다 재렌더링
+	}
+
+	animate();
 
 	return null;
 }
