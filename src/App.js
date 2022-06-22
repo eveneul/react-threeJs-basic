@@ -2,15 +2,21 @@ import './scss/style.scss';
 
 import { Canvas } from 'react-three-fiber';
 
+const Box = () => {
+	return (
+		<mesh>
+			<boxBufferGeometry />
+			<meshBasicMaterial color='hotpink' />
+		</mesh>
+	);
+};
+
 function App() {
 	return (
 		<section>
 			<figure>
 				<Canvas style={{ background: '#000' }}>
-					<mesh>
-						<boxBufferGeometry />
-						<meshBasicMaterial color='hotpink' />
-					</mesh>
+					<Box />
 				</Canvas>
 			</figure>
 		</section>
