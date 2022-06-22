@@ -1,9 +1,16 @@
 import './scss/style.scss';
 import * as THREE from 'three';
 
-import { Canvas, useFrame, extend, useThree } from 'react-three-fiber';
+import {
+	Canvas,
+	useFrame,
+	extend,
+	useThree,
+	useLoader,
+} from 'react-three-fiber';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { useRef } from 'react';
+import { useRef, Suspense } from 'react';
+// Suspense: React component 안쪽에 비동기로 실행이 돼서 오류가 날만한 구문을 동기화 시켜 줌
 
 extend({ OrbitControls });
 
@@ -15,7 +22,10 @@ const Orbit = () => {
 
 const Box = (props) => {
 	const box = useRef(null);
-
+	const texture = useLoader(
+		THREE.TextureLoader,
+		`${process.env.PUBLIC_URL}/img/wood.jpg`
+	);
 	//useFrame은 화면 주사율에 맞게 프레임별로 정보값 제공
 	//모션 작업을 하고 싶을 때 해당 오브제에 모션 작업 구문 주로 설정
 	useFrame((state) => {
@@ -27,18 +37,7 @@ const Box = (props) => {
 	return (
 		<mesh ref={box} {...props} castShadow>
 			<boxBufferGeometry />
-			<meshPhysicalMaterial
-				color='white'
-				// metalness={2} // 메탈 효과
-				roughness={0} // 거칠기
-				clearcoat={1} // 표면 코팅
-				// transparent
-				opacity={0.6}
-				transmission={0.9}
-				reflectivity={3}
-				side={THREE.DoubleSide}
-				fog={false} //안개효과 제거
-			/>
+			<meshPhysicalMaterial map={texture} />
 		</mesh>
 	);
 };
@@ -100,7 +99,9 @@ function App() {
 					<Orbit />
 					<axesHelper args={[5]} />
 					<fog attach='fog' args={['#fff', 1, 10]} />
-					<Box position={[0, 1, 0]} />
+					<Suspense fallback={null}>
+						<Box position={[0, 1, 0]} />
+					</Suspense>
 					<Floor position={[0, -0.05, 0]} />
 					{/* 가이드 축 보이게 함 */}
 				</Canvas>
