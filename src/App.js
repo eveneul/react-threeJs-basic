@@ -1,4 +1,5 @@
 import './scss/style.scss';
+import * as THREE from 'three';
 
 import { Canvas, useFrame, extend, useThree } from 'react-three-fiber';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -45,13 +46,15 @@ function App() {
 					line: 포인트를 선으로 연결
 					mesh: 라인을 면으로 생성 */}
 
-					<points>
+					<mesh>
+						<meshBasicMaterial color='hotpink' side={THREE.DoubleSide} />
 						<geometry>
+							<face3 args={[0, 1, 2]} attachArray='faces' />
+							<vector3 attachArray='vertices' args={[0, 2, 1]} />
 							<vector3 attachArray='vertices' />
-							<vector3 attachArray='vertices' args={[0, 1, 1]} />
 							<vector3 attachArray='vertices' args={[0, 1, -1]} />
 						</geometry>
-					</points>
+					</mesh>
 				</Canvas>
 			</figure>
 		</section>
