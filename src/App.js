@@ -27,7 +27,13 @@ const Box = (props) => {
 	return (
 		<mesh ref={box} {...props} castShadow receiveShadow>
 			<boxBufferGeometry />
-			<meshPhysicalMaterial color='cornflowerblue' />
+			<meshPhysicalMaterial
+				color='cornflowerblue'
+				metalness={2} // 메탈 효과
+				roughness={0.2} // 거칠기
+				clearcoat={0.5} // 표면 코팅
+				fog={false} //안개효과 제거
+			/>
 		</mesh>
 	);
 };
