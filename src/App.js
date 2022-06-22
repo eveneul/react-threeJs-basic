@@ -25,13 +25,18 @@ const Box = (props) => {
 
 	// 상자가 빛을 받아 그림자 생성 -> castShadow, 자신으로 인해 바닥에 그림자 생성 -> receiveShadow 둘 다 적용
 	return (
-		<mesh ref={box} {...props} castShadow receiveShadow>
+		<mesh ref={box} {...props} castShadow>
 			<boxBufferGeometry />
 			<meshPhysicalMaterial
-				color='cornflowerblue'
-				metalness={2} // 메탈 효과
-				roughness={0.2} // 거칠기
-				clearcoat={0.5} // 표면 코팅
+				color='white'
+				// metalness={2} // 메탈 효과
+				roughness={0} // 거칠기
+				clearcoat={1} // 표면 코팅
+				// transparent
+				opacity={0.6}
+				transmission={0.9}
+				reflectivity={3}
+				side={THREE.DoubleSide}
 				fog={false} //안개효과 제거
 			/>
 		</mesh>
@@ -75,7 +80,7 @@ function App() {
 					<Orbit />
 					<axesHelper args={[5]} />
 					<fog attach='fog' args={['#fff', 1, 10]} />
-					<Box position={[-1.5, 1, 0]} />
+					<Box position={[0, 1, 0]} />
 					<Floor position={[0, -0.05, 0]} />
 					{/* 가이드 축 보이게 함 */}
 				</Canvas>
