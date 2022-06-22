@@ -57,8 +57,11 @@ const Background = (props) => {
 		THREE.TextureLoader,
 		`${process.env.PUBLIC_URL}/img/landscape.webp`
 	);
-
-	return <primitive attach='background' object={texture} />;
+	const { gl } = useThree();
+	const formatted = new THREE.WebGLCubeRenderTarget(
+		texture.image.height
+	).fromEquirectangularTexture(gl, texture);
+	return <primitive attach='background' object={formatted} />;
 };
 
 const Light = (props) => {
