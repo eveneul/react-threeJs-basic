@@ -8,6 +8,7 @@
 
 import './scss/style.scss';
 import * as THREE from 'three'; // three.js 불러오기
+import { render } from 'react-three-fiber';
 
 function App() {
 	// 모델이 잘 출력되기 위한 scene(인스턴스) 설치
@@ -30,6 +31,29 @@ function App() {
 
 	//해당 신에 있는 domElement를 body에 출력하기 위함
 	document.body.appendChild(renderer.domElement);
+
+	// 기하학 도형 인스턴스 생성
+	const geometry = new THREE.BoxGeometry();
+
+	// 메테리얼 설정
+	const material = new THREE.MeshBasicMaterial({
+		color: 'hotpink',
+	});
+
+	// 도형과 메테리얼 병합
+	const cube = new THREE.Mesh(geometry, material);
+
+	// camera z축 설정
+	camera.position.z = 5;
+
+	// 처음에 설정한 sence에 도형을 바인딩
+	scene.add(cube);
+
+	cube.rotation.x = 20;
+	cube.rotation.y = 50;
+
+	//신에 카메라를 연결해서 최종 렌더링
+	renderer.render(scene, camera);
 
 	return null;
 }
