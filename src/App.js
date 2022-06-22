@@ -52,6 +52,15 @@ const Floor = (props) => {
 	);
 };
 
+const Background = (props) => {
+	const texture = useLoader(
+		THREE.TextureLoader,
+		`${process.env.PUBLIC_URL}/img/landscape.webp`
+	);
+
+	return <primitive attach='background' object={texture} />;
+};
+
 const Light = (props) => {
 	if (props.show) {
 		return (
@@ -102,8 +111,10 @@ function App() {
 					<Suspense fallback={null}>
 						<Box position={[0, 1, 0]} />
 					</Suspense>
-					<Floor position={[0, -0.05, 0]} />
-					{/* 가이드 축 보이게 함 */}
+
+					<Suspense fallback={null}>
+						<Background />
+					</Suspense>
 				</Canvas>
 			</figure>
 		</section>
