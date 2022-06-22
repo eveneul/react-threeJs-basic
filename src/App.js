@@ -22,17 +22,20 @@ const Box = (props) => {
 		box.current.rotation.x += 0.01;
 		box.current.rotation.y += 0.01;
 	});
+
+	// 상자가 빛을 받아 그림자 생성 -> castShadow, 자신으로 인해 바닥에 그림자 생성 -> receiveShadow 둘 다 적용
 	return (
-		<mesh ref={box} {...props}>
+		<mesh ref={box} {...props} castShadow receiveShadow>
 			<boxBufferGeometry />
-			<meshBasicMaterial color='hotpink' />
+			<meshPhysicalMaterial color='hotpink' />
 		</mesh>
 	);
 };
 
 const Floor = (props) => {
+	// 빛을 받아서 그림자를 출력만 하면 되어서 recieveShadow
 	return (
-		<mesh {...props}>
+		<mesh {...props} receiveShadow>
 			<boxBufferGeometry args={[15, 0.1, 30]} />
 			<meshPhysicalMaterial color='#fff' />
 		</mesh>
@@ -44,13 +47,18 @@ function App() {
 		<section>
 			<figure>
 				{/* camera 위치값 [x, y, z] */}
-				<Canvas style={{ background: '#000' }} camera={{ position: [3, 3, 3] }}>
-					<ambientLight intensity={0.1} color='#fff' />
+				<Canvas
+					style={{ background: '#000' }}
+					camera={{ position: [3, 3, 3] }}
+					shadowMap>
+					<ambientLight intensity={0.3} color='#fff' />
 					{/* ambientLight: 빛의 방향이 없고 그림자를 생성하지 않음, color, intensity값 지정 가능, 해당 라이팅 영향을 받으려면 오브제에서 meshPhysicalMaterial 설정해야 함 */}
-					<Box position={[1, 2, 0]} />
-					<Floor position={[0, -0.05, 0]} />
+					<pointLight intensity={1} castShadow position={[0, 5, 0]} />
+					{/* pointLight: 방향성을 가지고 그림자 생성, castShadow=>그림자 발생시킴 */}
 					<Orbit />
 					<axesHelper args={[5]} />
+					<Box position={[-1, 2, 0]} />
+					<Floor position={[0, -0.05, 0]} />
 					{/* 가이드 축 보이게 함 */}
 				</Canvas>
 			</figure>
