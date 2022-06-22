@@ -50,7 +50,7 @@ function App() {
 	scene.add(cube);
 
 	function animate() {
-		requestAnimationFrame(animate); // 자기 자신이 계속 반복
+		requestAnimationFrame(animate); // 화면 주사율에 맞게 자기 자신이 계속 반복
 		cube.rotation.x += 0.01;
 		cube.rotation.y += 0.01;
 
@@ -59,6 +59,16 @@ function App() {
 	}
 
 	animate();
+
+	// 브라우저 사이즈가 바뀔 때마다 종횡비 재설정
+	window.addEventListener('resize', () => {
+		// 캔버스 사이즈만 재갱신
+		renderer.setSize(window.innerWidth, window.innerHeight);
+		// 화면 비율 재갱신
+		camera.aspect = window.innerWidth / window.innerHeight;
+		// 업데이트된 비율로 모델링 업데이트
+		camera.updateProjectionMatrix();
+	});
 
 	return null;
 }
