@@ -27,7 +27,7 @@ const Box = (props) => {
 	return (
 		<mesh ref={box} {...props} castShadow receiveShadow>
 			<boxBufferGeometry />
-			<meshPhysicalMaterial color='hotpink' />
+			<meshPhysicalMaterial color='cornflowerblue' />
 		</mesh>
 	);
 };
@@ -38,6 +38,18 @@ const Floor = (props) => {
 		<mesh {...props} receiveShadow>
 			<boxBufferGeometry args={[15, 0.1, 30]} />
 			<meshPhysicalMaterial color='#fff' />
+		</mesh>
+	);
+};
+
+const Light = (props) => {
+	const color = 'yellow';
+	return (
+		<mesh {...props}>
+			<pointLight color={color} intensity={1} castShadow position={[0, 5, 0]} />
+			{/* pointLight: 방향성을 가지고 그림자 생성, castShadow=>그림자 발생시킴 */}
+			<sphereBufferGeometry args={[0.2, 20, 20]} />
+			<meshPhysicalMaterial emissive={color} />
 		</mesh>
 	);
 };
@@ -53,16 +65,11 @@ function App() {
 					shadowMap>
 					<ambientLight intensity={0.3} color='#fff' />
 					{/* ambientLight: 빛의 방향이 없고 그림자를 생성하지 않음, color, intensity값 지정 가능, 해당 라이팅 영향을 받으려면 오브제에서 meshPhysicalMaterial 설정해야 함 */}
-					<pointLight
-						color={'yellow'}
-						intensity={1}
-						castShadow
-						position={[0, 5, 0]}
-					/>
-					{/* pointLight: 방향성을 가지고 그림자 생성, castShadow=>그림자 발생시킴 */}
+					<Light position={[0, 2, 0]} />
 					<Orbit />
 					<axesHelper args={[5]} />
-					<Box position={[-1, 2, 0]} />
+					<fog attach='fog' args={['#fff', 1, 10]} />
+					<Box position={[-1.5, 1, 0]} />
 					<Floor position={[0, -0.05, 0]} />
 					{/* 가이드 축 보이게 함 */}
 				</Canvas>
