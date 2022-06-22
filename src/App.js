@@ -34,7 +34,7 @@ const Floor = (props) => {
 	return (
 		<mesh {...props}>
 			<boxBufferGeometry args={[15, 0.1, 30]} />
-			<meshBasicMaterial color='#fff' />
+			<meshPhysicalMaterial color='#fff' />
 		</mesh>
 	);
 };
@@ -45,6 +45,8 @@ function App() {
 			<figure>
 				{/* camera 위치값 [x, y, z] */}
 				<Canvas style={{ background: '#000' }} camera={{ position: [3, 3, 3] }}>
+					<ambientLight intensity={0.1} color='#fff' />
+					{/* ambientLight: 빛의 방향이 없고 그림자를 생성하지 않음, color, intensity값 지정 가능, 해당 라이팅 영향을 받으려면 오브제에서 meshPhysicalMaterial 설정해야 함 */}
 					<Box position={[1, 2, 0]} />
 					<Floor position={[0, -0.05, 0]} />
 					<Orbit />
