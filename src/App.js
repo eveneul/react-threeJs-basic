@@ -1,7 +1,16 @@
 import './scss/style.scss';
 
-import { Canvas, useFrame } from 'react-three-fiber';
+import { Canvas, useFrame, extend, useThree } from 'react-three-fiber';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { useRef } from 'react';
+
+extend({ OrbitControls });
+
+// 드래그로(유저 이벤트)로 화면의 축을 변경할 수 있는 객체 리턴 함수
+const Orbit = () => {
+	const { camera, gl } = useThree();
+	return <orbitControls args={[camera, gl.domElement]} />;
+};
 
 const Box = () => {
 	const box = useRef(null);
@@ -24,8 +33,12 @@ function App() {
 	return (
 		<section>
 			<figure>
-				<Canvas style={{ background: '#000' }}>
+				{/* camera 위치값 [x, y, z] */}
+				<Canvas style={{ background: '#000' }} camera={{ position: [3, 3, 3] }}>
 					<Box />
+					<Orbit />
+					<axesHelper args={[5]} />
+					{/* 가이드 축 보이게 함 */}
 				</Canvas>
 			</figure>
 		</section>
