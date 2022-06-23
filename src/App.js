@@ -12,6 +12,7 @@ import Floor from './components/Floor';
 import Background from './components/Background';
 import Light from './components/Light';
 import Dragable from './components/Dragable';
+import CarModel from './components/CarModel';
 
 extend({ OrbitControls });
 
@@ -34,14 +35,24 @@ function App() {
 								position={[0, 2.5, 2]}
 								show={true}
 								color={'white'}
-								intensity={0.5}
+								intensity={1}
 							/>
-							<Suspense fallback={null}>
-								<Box position={[-2, 3, 0]} />
-							</Suspense>
-							<Suspense fallback={null}>
+							<Light
+								position={[0, 2.5, 2]}
+								show={true}
+								color={'white'}
+								intensity={1}
+							/>
+							<Light
+								position={[0, 2.5, 2]}
+								show={true}
+								color={'white'}
+								intensity={1}
+							/>
+
+							{/* <Suspense fallback={null}>
 								<Box position={[2, 3, 0]} />
-							</Suspense>
+							</Suspense> */}
 						</Dragable>
 
 						<Floor position={[0, -0.15, 0]} />
@@ -50,6 +61,12 @@ function App() {
 							<Background />
 						</Suspense>
 					</Physics>
+					<Suspense fallback={null}>
+						<CarModel
+							path={`${process.env.PUBLIC_URL}/car/scene.gltf`}
+							position={[-3, 0, 0]}
+						/>
+					</Suspense>
 				</Canvas>
 			</figure>
 		</section>
