@@ -1,6 +1,4 @@
 import './scss/style.scss';
-import * as THREE from 'three';
-import styled from 'styled-components';
 
 import { Canvas, extend } from 'react-three-fiber';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -12,6 +10,7 @@ import Box from './components/Box';
 import Floor from './components/Floor';
 import Background from './components/Background';
 import Light from './components/Light';
+import Dragable from './components/Dragable';
 
 extend({ OrbitControls });
 
@@ -25,21 +24,24 @@ function App() {
 					camera={{ position: [7, 7, 7] }}
 					shadowMap>
 					<ambientLight intensity={0.3} color='#fff' />
-					<Light position={[0, 2, 0]} show={true} />
-					<Light
-						position={[0, 2.5, 2]}
-						show={true}
-						color={'blue'}
-						intensity={0.5}
-					/>
 					<Orbit />
 					<axesHelper args={[5]} />
-					<Suspense fallback={null}>
-						<Box position={[-2, 1.5, 0]} />
-					</Suspense>
-					<Suspense fallback={null}>
-						<Box position={[2, 1.5, 0]} />
-					</Suspense>
+					<Dragable>
+						<Light
+							position={[0, 2.5, 2]}
+							show={true}
+							color={'blue'}
+							intensity={0.5}
+						/>
+
+						<Suspense fallback={null}>
+							<Box position={[-2, 1.5, 0]} />
+						</Suspense>
+						<Suspense fallback={null}>
+							<Box position={[2, 1.5, 0]} />
+						</Suspense>
+					</Dragable>
+
 					<Floor position={[0, -0.1, 0]} />
 
 					<Suspense fallback={null}>
