@@ -33,9 +33,31 @@ const Box = (props) => {
 		box.current.rotation.y += 0.01;
 	});
 
+	const handlePointerDown = (e) => {
+		console.log(e.object);
+	};
+
+	const handlePointerEnter = (e) => {
+		e.object.scale.x = 1.5;
+		e.object.scale.y = 1.5;
+		e.object.scale.z = 1.5;
+	};
+
+	const handlePointerLeave = (e) => {
+		e.object.scale.x = 1;
+		e.object.scale.y = 1;
+		e.object.scale.z = 1;
+	};
+
 	// 상자가 빛을 받아 그림자 생성 -> castShadow, 자신으로 인해 바닥에 그림자 생성 -> receiveShadow 둘 다 적용
 	return (
-		<mesh ref={box} {...props} castShadow>
+		<mesh
+			onPointerDown={handlePointerDown}
+			onPointerEnter={handlePointerEnter}
+			onPointerLeave={handlePointerLeave}
+			ref={box}
+			{...props}
+			castShadow>
 			<boxBufferGeometry />
 			<meshPhysicalMaterial map={texture} />
 		</mesh>
