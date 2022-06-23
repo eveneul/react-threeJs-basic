@@ -3,6 +3,7 @@ import './scss/style.scss';
 import { Canvas, extend } from 'react-three-fiber';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Suspense } from 'react';
+import { Physics } from 'use-cannon';
 
 import Orbit from './components/Orbit';
 import ColorPicker from './components/ColorPicker';
@@ -27,26 +28,28 @@ function App() {
 					<Orbit />
 					<axesHelper args={[5]} />
 
-					<Dragable>
-						<Light
-							position={[0, 2.5, 2]}
-							show={true}
-							color={'white'}
-							intensity={0.5}
-						/>
-						<Suspense fallback={null}>
-							<Box position={[-2, 1.5, 0]} />
-						</Suspense>
-						<Suspense fallback={null}>
-							<Box position={[2, 1.5, 0]} />
-						</Suspense>
-					</Dragable>
+					<Physics>
+						<Dragable>
+							<Light
+								position={[0, 2.5, 2]}
+								show={true}
+								color={'white'}
+								intensity={0.5}
+							/>
+							<Suspense fallback={null}>
+								<Box position={[-2, 3, 0]} />
+							</Suspense>
+							<Suspense fallback={null}>
+								<Box position={[2, 3, 0]} />
+							</Suspense>
+						</Dragable>
 
-					<Floor position={[0, -0.1, 0]} />
+						<Floor position={[0, -0.1, 0]} />
 
-					<Suspense fallback={null}>
-						<Background />
-					</Suspense>
+						<Suspense fallback={null}>
+							<Background />
+						</Suspense>
+					</Physics>
 				</Canvas>
 			</figure>
 		</section>
