@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 extend({ DragControls });
 
 function Dragable(props) {
-	const { camera, gl } = useThree();
+	const { camera, gl, scene } = useThree();
 	const groupRef = useRef(null);
 	const controlRef = useRef(null);
 	const [children, setChildren] = useState([]);
@@ -16,7 +16,11 @@ function Dragable(props) {
 
 	useEffect(() => {
 		controlRef.current.addEventListener('hoveron', (e) => {
-			console.log(e);
+			scene.orbitControls.enabled = false;
+		});
+
+		controlRef.current.addEventListener('hoveroff', (e) => {
+			scene.orbitControls.enabled = true;
 		});
 	}, [children]);
 	return (
