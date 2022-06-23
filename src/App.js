@@ -119,7 +119,7 @@ function App() {
 				{/* camera 위치값 [x, y, z] */}
 				<Canvas
 					style={{ background: '#000' }}
-					camera={{ position: [3, 3, 3] }}
+					camera={{ position: [7, 7, 7] }}
 					shadowMap>
 					<ambientLight intensity={0.3} color='#fff' />
 					{/* ambientLight: 빛의 방향이 없고 그림자를 생성하지 않음, color, intensity값 지정 가능, 해당 라이팅 영향을 받으려면 오브제에서 meshPhysicalMaterial 설정해야 함 */}
@@ -132,10 +132,13 @@ function App() {
 					/>
 					<Orbit />
 					<axesHelper args={[5]} />
-					<fog attach='fog' args={['#fff', 1, 10]} />
 					<Suspense fallback={null}>
-						<Box position={[0, 1, 0]} />
+						<Box position={[-2, 1.5, 0]} />
 					</Suspense>
+					<Suspense fallback={null}>
+						<Box position={[2, 1.5, 0]} />
+					</Suspense>
+					<Floor position={[0, -0.1, 0]} />
 
 					<Suspense fallback={null}>
 						<Background />
