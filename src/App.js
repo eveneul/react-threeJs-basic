@@ -3,7 +3,7 @@ import './scss/style.scss';
 import { Canvas, extend } from 'react-three-fiber';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Suspense } from 'react';
-import { Physics } from 'use-cannon';
+import { Physics } from 'use-cannon'; // 물리법칙 적용
 
 import Orbit from './components/Orbit';
 import ColorPicker from './components/ColorPicker';
@@ -44,7 +44,7 @@ function App() {
 							</Suspense>
 						</Dragable>
 
-						<Floor position={[0, -0.1, 0]} />
+						<Floor position={[0, -0.15, 0]} />
 
 						<Suspense fallback={null}>
 							<Background />
