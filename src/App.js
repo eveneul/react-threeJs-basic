@@ -26,14 +26,13 @@ function App() {
 					<ambientLight intensity={0.3} color='#fff' />
 					<Orbit />
 					<axesHelper args={[5]} />
+					<Light
+						position={[0, 2.5, 2]}
+						show={true}
+						color={'blue'}
+						intensity={0.5}
+					/>
 					<Dragable>
-						<Light
-							position={[0, 2.5, 2]}
-							show={true}
-							color={'blue'}
-							intensity={0.5}
-						/>
-
 						<Suspense fallback={null}>
 							<Box position={[-2, 1.5, 0]} />
 						</Suspense>
