@@ -5,7 +5,7 @@ import { useBox } from 'use-cannon';
 const Floor = (props) => {
 	// 빛을 받아서 그림자를 출력만 하면 되어서 recieveShadow
 
-	const [ref, api] = useBox(() => ({ ...props }));
+	const [ref, api] = useBox(() => ({ args: [15, 0.3, 30], ...props }));
 	return (
 		<mesh {...props} ref={ref} receiveShadow>
 			<boxBufferGeometry args={[15, 0.3, 30]} />

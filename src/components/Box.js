@@ -1,9 +1,10 @@
-import { useFrame, useLoader } from 'react-three-fiber';
+import { useLoader } from 'react-three-fiber';
 import { useRef } from 'react';
 import * as THREE from 'three';
+import { useBox } from 'use-cannon';
 
 const Box = (props) => {
-	const box = useRef(null);
+	const [ref, api] = useBox(() => ({ mass: 1, ...props }));
 	const texture = useLoader(
 		THREE.TextureLoader,
 		`${process.env.PUBLIC_URL}/img/wood.jpg`
@@ -48,7 +49,7 @@ const Box = (props) => {
 
 	// 상자가 빛을 받아 그림자 생성 -> castShadow, 자신으로 인해 바닥에 그림자 생성 -> receiveShadow 둘 다 적용
 	return (
-		<mesh onPointerDown={handlePointerDown} ref={box} {...props} castShadow>
+		<mesh onPointerDown={handlePointerDown} ref={ref} {...props} castShadow>
 			<boxBufferGeometry />
 			<meshPhysicalMaterial map={texture} />
 		</mesh>
