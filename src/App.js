@@ -36,6 +36,7 @@ const Box = (props) => {
 	const handlePointerDown = (e) => {
 		e.object.active = true;
 		if (window.activeMesh) {
+			if (window.activeMesh.uuid === e.object.uuid) return;
 			scaleDown(window.activeMesh);
 			window.activeMesh.active = false;
 		}
