@@ -1,8 +1,14 @@
+import { useBox } from 'use-cannon';
+
 const Light = (props) => {
+	const [ref, api] = useBox(() => ({ mass: 0, ...props }));
+
 	if (props.show) {
 		return (
-			<mesh position={props.position}>
+			<mesh ref={ref} api={api} position={props.position}>
 				<pointLight
+					ref={ref}
+					api={api}
 					color={props.color}
 					intensity={props.intensity}
 					castShadow
