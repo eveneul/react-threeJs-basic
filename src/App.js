@@ -34,10 +34,11 @@ const Box = (props) => {
 	});
 
 	const handlePointerDown = (e) => {
-		console.log(e.object);
-		// 클릭한 오브젝트에 active라는 키값을 만들고 true로 저장해서 오브젝트 구분
 		e.object.active = true;
-		// 구분된 오브젝트를 전역객체에 등록
+		if (window.activeMesh) {
+			scaleDown(window.activeMesh);
+			window.activeMesh.active = false;
+		}
 		window.activeMesh = e.object;
 	};
 
