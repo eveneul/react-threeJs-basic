@@ -49,7 +49,12 @@ const Box = (props) => {
 
 	// 상자가 빛을 받아 그림자 생성 -> castShadow, 자신으로 인해 바닥에 그림자 생성 -> receiveShadow 둘 다 적용
 	return (
-		<mesh onPointerDown={handlePointerDown} ref={ref} {...props} castShadow>
+		<mesh
+			onPointerDown={handlePointerDown}
+			ref={ref}
+			api={api}
+			{...props}
+			castShadow>
 			<boxBufferGeometry />
 			<meshPhysicalMaterial map={texture} />
 		</mesh>
