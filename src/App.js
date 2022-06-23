@@ -1,5 +1,6 @@
 import './scss/style.scss';
 import * as THREE from 'three';
+import styled from 'styled-components';
 
 import {
 	Canvas,
@@ -14,6 +15,27 @@ import { useRef, Suspense } from 'react';
 
 extend({ OrbitControls });
 
+const ColorPickr = styled.ul`
+	position: absolute;
+	bottom: 50px;
+	left: 50px;
+	display: flex;
+	z-index: 3;
+	li {
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: #333;
+		font-size: 12px;
+		margin-right: 10px;
+		cursor: pointer;
+		color: #fff;
+		font-weight: bold;
+	}
+`;
 // 드래그로(유저 이벤트)로 화면의 축을 변경할 수 있는 객체 리턴 함수
 const Orbit = () => {
 	const { camera, gl } = useThree();
@@ -127,11 +149,33 @@ const Light = (props) => {
 	}
 };
 
+const handleClick = (e) => {
+	// 색상 패널 클릭 시 만약 전역에 등록된 오브젝트가 없으면 (선택된 요소가 없으면 종료)
+	if (!window.activeMesh) return;
+
+	//전역에 등록된 오브젝트를 불러와서 colorPicker에 선택된 색상으로 변경
+	window.activeMesh.material.color = new THREE.Color(
+		e.target.style.backgroundColor
+	);
+};
+
 function App() {
 	return (
 		<section>
 			<figure>
-				{/* camera 위치값 [x, y, z] */}
+				<ColorPickr>
+					{['red', 'blue', 'green', 'transpearent'].map((color) => {
+						return (
+							<li
+								key={color}
+								style={{ backgroundColor: color }}
+								onClick={handleClick}>
+								{color}
+							</li>
+						);
+					})}
+				</ColorPickr>
+
 				<Canvas
 					style={{ background: '#000' }}
 					camera={{ position: [7, 7, 7] }}
