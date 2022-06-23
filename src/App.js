@@ -42,15 +42,24 @@ const Box = (props) => {
 	};
 
 	const handlePointerEnter = (e) => {
-		e.object.scale.x = 1.5;
-		e.object.scale.y = 1.5;
-		e.object.scale.z = 1.5;
+		scaleUp(e.object);
 	};
 
 	const handlePointerLeave = (e) => {
-		e.object.scale.x = 1;
-		e.object.scale.y = 1;
-		e.object.scale.z = 1;
+		if (e.object.active) return;
+		scaleDown(e.object);
+	};
+
+	const scaleUp = (object) => {
+		object.scale.x = 1.5;
+		object.scale.y = 1.5;
+		object.scale.z = 1.5;
+	};
+
+	const scaleDown = (object) => {
+		object.scale.x = 1;
+		object.scale.y = 1;
+		object.scale.z = 1;
 	};
 
 	// 상자가 빛을 받아 그림자 생성 -> castShadow, 자신으로 인해 바닥에 그림자 생성 -> receiveShadow 둘 다 적용
